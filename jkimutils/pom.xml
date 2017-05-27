@@ -64,9 +64,31 @@
 					</execution>
 				</executions>
 				<configuration>
-					<outputDirectory>target/lib</outputDirectory>
+					<outputDirectory>${basedir}/target/lib</outputDirectory>
 					<overWriteIfNewer>true</overWriteIfNewer>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/webapp</outputDirectory>
+							<resources>
+								<resource>
+									<directory>webapp</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
