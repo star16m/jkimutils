@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 @Path("/")
-public class UtilResource {
+public class MainResource {
 
 	public static final File PARENT_FILE = new File("webapp");
 	@GET

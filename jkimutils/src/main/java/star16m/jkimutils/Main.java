@@ -11,7 +11,7 @@ import com.sun.net.httpserver.HttpServer;
  * Hello world!
  *
  */
-public class App {
+public class Main {
 	public static void main(String[] arguments) throws Exception {
 		int port = 9999;
 		URI uri = UriBuilder.fromUri("http://localhost/").port(port).build();
