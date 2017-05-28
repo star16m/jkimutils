@@ -11,7 +11,7 @@ import javax.ws.rs.core.UriBuilder;
 @Path("/")
 public class MainResource {
 
-	public static final File PARENT_FILE = new File("webapp");
+	public static final File PARENT_FILE = new File("resources");
 	@GET
 	@Path("/")
 	public Response getMain() throws Exception {
