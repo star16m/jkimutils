@@ -46,7 +46,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>star16m.jkimutils.App</mainClass>
+							<mainClass>star16m.jkimutils.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -82,7 +82,7 @@
 							<outputDirectory>${basedir}/target/resources</outputDirectory>
 							<resources>
 								<resource>
-									<directory>webapp</directory>
+									<directory>resources</directory>
 									<filtering>true</filtering>
 								</resource>
 							</resources>
