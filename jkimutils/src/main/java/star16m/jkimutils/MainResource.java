@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.nio.charset.Charset;
 
 import javax.ws.rs.GET;
@@ -20,13 +21,14 @@ public class MainResource {
 	@GET
 	@Path("/")
 	public Response getMain() throws Exception {
-		return getPage("main.html");
+		return Response.seeOther(UriBuilder.fromUri("main.html").build()).build();
 	}
     @GET
     @Path("/{path:.+}")
     public Response getPage(@PathParam("path") String path) throws Exception {
-    	if (path != null && path.endsWith("main.html")) {
-    		System.out.println("called main.html ====================== ");
+    	if (path != null && path.matches("main\\d*.html")) {
+    		String temp = path.replaceAll(".+main", "").replaceAll("\\.html", "");
+    		System.out.println("called main.html ====================== " + temp);
     		if (MAIN_FILE == null) {
     			synchronized (MainResource.class) {
     				System.out.println("generate main.html ====================== ");
@@ -40,7 +42,7 @@ public class MainResource {
 					MAIN_FILE = sb.toString();
 				}
     		}
-    		return Response.ok(MAIN_FILE).build();
+    		return Response.ok(MAIN_FILE.replaceAll("#CONTENTS#", temp + "contents")).build();
     	}
     	System.out.println("calls file[" + path + "]");
         try {
