@@ -79,7 +79,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${basedir}/target/webapp</outputDirectory>
+							<outputDirectory>${basedir}/target/resources</outputDirectory>
 							<resources>
 								<resource>
 									<directory>webapp</directory>
