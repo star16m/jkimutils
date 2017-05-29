@@ -33,6 +33,13 @@
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/gentelella -->
+		<dependency>
+			<groupId>org.webjars.bower</groupId>
+			<artifactId>gentelella</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+
 
 
 	</dependencies>

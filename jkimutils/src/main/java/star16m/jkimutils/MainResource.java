@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
 import java.nio.charset.Charset;
 
 import javax.ws.rs.GET;
@@ -28,10 +27,8 @@ public class MainResource {
     public Response getPage(@PathParam("path") String path) throws Exception {
     	if (path != null && path.matches("main\\d*.html")) {
     		String temp = path.replaceAll(".+main", "").replaceAll("\\.html", "");
-    		System.out.println("called main.html ====================== " + temp);
-    		if (MAIN_FILE == null) {
+//    		if (MAIN_FILE == null) {
     			synchronized (MainResource.class) {
-    				System.out.println("generate main.html ====================== ");
 					BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(new File(PARENT_FILE, "main.html")), Charset.forName("UTF-8")));
 					StringBuffer sb = new StringBuffer();
 					String l = null;
@@ -41,7 +38,7 @@ public class MainResource {
 					br.close();
 					MAIN_FILE = sb.toString();
 				}
-    		}
+//    		}
     		return Response.ok(MAIN_FILE.replaceAll("#CONTENTS#", temp + "contents")).build();
     	}
     	System.out.println("calls file[" + path + "]");
@@ -52,5 +49,10 @@ public class MainResource {
         	e.printStackTrace();
         	return Response.noContent().build();
         }
+    }
+    @GET
+	@Path("/webjars/{path:.+}")
+    public Response getWebJars(@PathParam("path") String path) throws Exception {
+    	return Response.ok(getClass().getResourceAsStream("/META-INF/resources/webjars/" + path)).build();
     }
 }
