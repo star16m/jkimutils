@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-bundle</artifactId>
-			<version>1.19.4</version>
+			<version>1.19</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -39,6 +39,14 @@
 			<artifactId>gentelella</artifactId>
 			<version>1.3.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>2.8.8</version>
+		</dependency>
+
 
 
 
