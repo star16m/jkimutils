@@ -8,11 +8,17 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+
+import star16m.jkimutils.contents.Contents;
+import star16m.jkimutils.contents.Header;
 
 @Path("/")
 public class MainResource {
@@ -52,6 +58,17 @@ public class MainResource {
 	public Response getMain(@PathParam("type") String type) throws Exception {
 		System.out.println("call main -> type[" + type + "]");
 		return Response.ok(MAIN_CONTENTS).build();
+	}
+	@GET
+	@Path("/contents/{type : .*}")
+	@Produces("application/json")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Contents getContents(@PathParam("type") String type) throws Exception {
+		System.out.println("call contents -> type[" + type + "]");
+		Contents contents = new Contents("haha", "title from contents", "this is description");
+		contents.setHeader(Arrays.asList(new Header(0, "title-123"), new Header(1, "title-abc")));
+		contents.setData(Arrays.asList(new String[] {"haha1", "hoho1"}, new String[] {"haha2", "hoho2"}));
+		return contents;
 	}
 	@GET
 	@Path("/resources/{path:.+}")
