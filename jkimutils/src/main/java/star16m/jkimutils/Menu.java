@@ -21,5 +21,7 @@ public class Menu {
 	public void setLink(String link) {
 		this.link = link;
 	}
-	
+	public String getHTMLString() {
+		return "<li><a href='" + getLink() + "'>" + getName() + "</a></li>";
+	}
 }
