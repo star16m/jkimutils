@@ -3,7 +3,7 @@ $(document).ready(function() {
 	console.log("call contents[" + key + "]");
     $.ajax({
         type: "GET",
-        url: "/contents/" + key,
+        url: "/main/contents/" + key,
         data: {},
         dataType: "json",
         success: function(response) {
