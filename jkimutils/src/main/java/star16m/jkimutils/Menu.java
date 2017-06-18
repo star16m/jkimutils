@@ -4,6 +4,9 @@ public class Menu {
 	
 	private String name;
 	private String link;
+	public Menu() {
+		super();
+	}
 	public Menu(String name, String link) {
 		super();
 		this.name = name;

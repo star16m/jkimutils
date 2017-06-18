@@ -75,8 +75,8 @@ public class Main {
 	}
 
 	private static List<Menu> getMenuList() throws Exception {
-		DBManager dbManager = new DBManager("C:\\data\\tmp");
-		dbManager.select();
+//		DBManager dbManager = DBManager.getInstance("C:\\data\\tmp");
+//		dbManager.select();
 		List<Menu> list = Arrays.asList(new Menu("haha", "/main/t1"), new Menu("aaaa", "/main/t2"));
 		return list;
 	}
