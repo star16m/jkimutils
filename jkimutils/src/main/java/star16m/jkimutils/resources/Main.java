@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,10 +17,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import org.apache.ibatis.session.SqlSession;
+
 import star16m.jkimutils.Menu;
 import star16m.jkimutils.contents.Contents;
 import star16m.jkimutils.contents.Header;
 import star16m.jkimutils.db.DBManager;
+import star16m.jkimutils.db.mapper.MenuMapper;
 
 @Path("/")
 public class Main {
@@ -75,9 +77,13 @@ public class Main {
 	}
 
 	private static List<Menu> getMenuList() throws Exception {
-//		DBManager dbManager = DBManager.getInstance("C:\\data\\tmp");
+		DBManager dbManager = DBManager.getInstance();
+		SqlSession session = dbManager.getSQLSession();
+		MenuMapper<Menu> mapper = (MenuMapper<Menu>) session.getMapper(MenuMapper.class);
+		List<Menu> list = session.selectList("star16m.jkimutils.db.mapper.MenuMapper.getAllItems", "Menu");
 //		dbManager.select();
-		List<Menu> list = Arrays.asList(new Menu("haha", "/main/t1"), new Menu("aaaa", "/main/t2"));
+		
+//		List<Menu> list = Arrays.asList(new Menu("haha", "/main/t1"), new Menu("aaaa", "/main/t2"));
 		return list;
 	}
 }

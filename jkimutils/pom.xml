@@ -54,11 +54,10 @@
     <artifactId>h2</artifactId>
     <version>1.4.196</version>
 </dependency>
-<!-- https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
 <dependency>
-    <groupId>commons-dbutils</groupId>
-    <artifactId>commons-dbutils</artifactId>
-    <version>1.6</version>
+    <groupId>org.mybatis</groupId>
+   <artifactId>mybatis</artifactId>
+   <version>3.2.2</version>
 </dependency>
 
 
