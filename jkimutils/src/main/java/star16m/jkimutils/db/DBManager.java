@@ -36,25 +36,14 @@ public class DBManager {
 		return dbManager;
 	}
 	
+	public Configuration getConfiguration() {
+		return this.configuration;
+	}
 	public SqlSession getSQLSession() {
 		SqlSession session = sqlSessionFactory.openSession();
 		return session;
 	}
-	
-//	public static void main(String[] args) throws Exception {
-//		
-//		System.out.println("haha2");
-//		SqlSession session = sqlSessionFactory.openSession();
-//		MenuMapper mapper = session.getMapper(MenuMapper.class);
-//		Menu newm = new Menu("new menu2", "https://daum.net");
-//		mapper.insert(newm);
-////		mapper.delete("hah");
-//		List<Menu> menus = mapper.getAllMenu();
-//		System.out.println("---------------------------------------");
-//		for(Menu m : menus) {
-//			System.out.println("menu" + m.getName());
-//		}
-//		System.out.println("========================= end");
-//		session.close();
-//	}
+	public SqlSessionFactory getSqlSessionFactory() {
+		return this.sqlSessionFactory;
+	}
 }

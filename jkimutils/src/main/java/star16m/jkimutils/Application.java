@@ -15,17 +15,11 @@ import com.sun.net.httpserver.HttpServer;
 public class Application {
 	private static ApplicationConfig config;
 	
-	public static String APP_PORT        = "app.conf.port";
-	public static String APP_DRIVER_URL  = "app.conf.driver.url";
-	public static String APP_DRIVER_NAME = "app.conf.driver.name";
-	public static String APP_USER_NAME   = "app.conf.user.name";
-	public static String APP_PASSWORD    = "app.conf.password";
-	
-	private static final String APP_CONF_PORT        = "app.conf.port";
-	private static final String APP_CONF_DRIVER_URL  = "app.conf.driver.url";
-	private static final String APP_CONF_DRIVER_NAME = "app.conf.driver.name";
-	private static final String APP_CONF_USER_NAME   = "app.conf.user.name";
-	private static final String APP_CONF_PASSWORD    = "app.conf.password";
+	public static final String APP_CONF_PORT        = "app.conf.port";
+	public static final String APP_CONF_DRIVER_URL  = "app.conf.driver.url";
+	public static final String APP_CONF_DRIVER_NAME = "app.conf.driver.name";
+	public static final String APP_CONF_USER_NAME   = "app.conf.user.name";
+	public static final String APP_CONF_PASSWORD    = "app.conf.password";
 	
 	public static class ApplicationConfig {
 		private int port;
