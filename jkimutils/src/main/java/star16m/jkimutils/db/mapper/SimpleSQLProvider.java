@@ -41,15 +41,4 @@ public class SimpleSQLProvider {
 		}
 		return String.format(DELETE_FORMAT, binder.getTableName(), String.join(" AND ", valueList));
 	}
-	
-//	@Select("SELECT name, link FROM Menu")
-//    public List<Menu> findAll();
-//	
-//	@Select("SELECT * FROM ${tableName} WHERE NAME ${key} '%' || #{value} || '%'")
-//	public List<Map<String, Object>> getItemBy(@Param("tableName") String tableName, @Param("key") String key, @Param("value") String value);
-//	
-//	@Insert("INSERT INTO Menu(name, link) values (#{name}, #{link})")
-//	public boolean insert(Menu menu);
-//
-//	@Delete("DELETE FROM Menu WHERE NAME like '%' || #{name} || '%'")
 }
