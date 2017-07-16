@@ -40,15 +40,16 @@ public class Main {
 				sb.append(line).append(newLine);
 			}
 			MAIN_CONTENTS = sb.toString();
+//			SimpleDao menuDao = new SimpleDao(new SimpleDataInfoBinder("Menu", "NAME", "LINK"));
 			SimpleDao menuDao = new SimpleDao(Menu.class);
-			List<Map<String, String>> menuList = menuDao.findAll();
+			List<Map<String, String>> menuList = menuDao.select();
 			sb = new StringBuffer();
 			for (Map<String, String> map : menuList) {
 				sb.append("<li><a href='" + map.get("LINK") + "'>" + map.get("NAME") + "</a></li>").append(newLine);
 			}
 			MAIN_CONTENTS = MAIN_CONTENTS.replaceAll("#MENU#", sb.toString());
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 
@@ -61,7 +62,6 @@ public class Main {
 	@GET
 	@Path("/main/{page : .*}")
 	public Response getMain(@PathParam("page") String page) throws Exception {
-		System.out.println("call main -> page[" + page + "]");
 		return Response.ok(MAIN_CONTENTS).build();
 	}
 
@@ -70,7 +70,6 @@ public class Main {
 	@Produces("application/json")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Contents getContents(@PathParam("page") String page) throws Exception {
-		System.out.println("call contents -> page[" + page + "]");
 		Contents contents = new Contents("haha", "title from contents", "this is description");
 		contents.setHeader(Arrays.asList(new Header(0, "title-123"), new Header(1, "title-abc")));
 		contents.setData(Arrays.asList(new String[] { "haha1", "hoho1" }, new String[] { "haha2", "hoho2" }));

@@ -1,49 +1,47 @@
 package star16m.jkimutils.db.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.jdbc.SQL;
+import star16m.jkimutils.db.dao.ISimpleDataInfoBinder;
 
-import star16m.jkimutils.Menu;
+public class SimpleSQLProvider {
 
-public class SimpleSQLProvider extends SQL {
-
-	public String select(Map<String, String> parameter) {
-		if (parameter == null || !parameter.containsKey("TABLE")) {
-			throw new RuntimeException();
-		}
-		String tableName = parameter.get("TABLE");
-		String fields = "*";
-		if (parameter.containsKey("FIELDS")) {
-			fields = parameter.get("FIELDS");
-		}
+	private static String SELECT_FORMAT = "SELECT %s FROM %s WHERE 1=1 %s";
+	private static String INSERT_FORMAT = "INSERT INTO %s ( %s ) VALUES ( %s )";
+	private static String DELETE_FORMAT = "DELETE FROM %s WHERE %s";
+	public String select(Map<String, Object> params) {
+		ISimpleDataInfoBinder binder = (ISimpleDataInfoBinder) params.get("binder");
+		String fields = String.join(", ", binder.getFieldList());
 		String where = "";
-		if (parameter.containsKey("WHERE")) {
-			where = " WHERE " + parameter.get("WHERE");
-		}
-		return "SELECT " + fields + " FROM " + tableName + where;
+		return String.format(SELECT_FORMAT, fields, binder.getTableName(), where);
 	}
 	
-	public String insert(Map<String, String> parameter) {
-		if (parameter == null || !parameter.containsKey("TABLE")) {
-			throw new RuntimeException();
-		}
-		String tableName = parameter.get("TABLE");
-		String fields = "*";
-		if (parameter.containsKey("FIELDS")) {
-			fields = parameter.get("FIELDS");
-		}
-		String where = "";
-		if (parameter.containsKey("WHERE")) {
-			where = " WHERE " + parameter.get("WHERE");
-		}
-		return "SELECT " + fields + " FROM " + tableName + where;
+	public String query(Map<String, Object> params) {
+		
+		String sql = (String) params.get("sql");
+		return sql;
 	}
+	
+	public String insert(Map<String, Object> params) {
+		ISimpleDataInfoBinder binder = (ISimpleDataInfoBinder) params.get("binder");
+		String fields = String.join(", ", binder.getFieldList());
+		List<String> valueList = new ArrayList<String>();
+		for (String field : binder.getFieldList()) {
+			valueList.add("#{data." + field + "}");
+		}
+		return String.format(INSERT_FORMAT, binder.getTableName(), fields, String.join(", ", valueList));
+	}
+	public String delete(Map<String, Object> params) {
+		ISimpleDataInfoBinder binder = (ISimpleDataInfoBinder) params.get("binder");
+		List<String> valueList = new ArrayList<String>();
+		for (String field : binder.getFieldList()) {
+			valueList.add(field + " = #{data." + field + "}");
+		}
+		return String.format(DELETE_FORMAT, binder.getTableName(), String.join(" AND ", valueList));
+	}
+	
 //	@Select("SELECT name, link FROM Menu")
 //    public List<Menu> findAll();
 //	
