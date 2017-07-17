@@ -11,7 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
-import star16m.jkimutils.Application;
+import star16m.jkimutils.Application.ApplicationConfig;
 
 public class DBManager {
 	
@@ -23,9 +23,9 @@ public class DBManager {
 		this.configuration = configuration;
 		this.sqlSessionFactory = sqlSessionFactory;
 	}
-	public static synchronized DBManager getInstance() {
+	public static synchronized DBManager getInstance(ApplicationConfig config) {
 		if (dbManager == null) {
-			DataSource dataSource = new PooledDataSource(Application.getConfig().getDriverName(),Application.getConfig().getDriverUrl(),Application.getConfig().getUserName(),Application.getConfig().getPassword());  
+			DataSource dataSource = new PooledDataSource(config.getDriverName(), config.getDriverUrl(), config.getUserName(), config.getPassword());  
 			TransactionFactory transactionFactory = new JdbcTransactionFactory();
 			Environment environment = new Environment("Main", transactionFactory, dataSource);
 			Configuration configuration = new Configuration(environment);

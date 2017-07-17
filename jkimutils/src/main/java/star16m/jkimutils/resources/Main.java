@@ -18,10 +18,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
+import star16m.jkimutils.Application;
 import star16m.jkimutils.Menu;
 import star16m.jkimutils.contents.Contents;
 import star16m.jkimutils.contents.Header;
 import star16m.jkimutils.db.dao.SimpleDao;
+import star16m.jkimutils.db.dao.SimpleDataInfoBinder;
 
 @Path("/")
 public class Main {
@@ -35,14 +37,21 @@ public class Main {
 		StringBuffer sb = new StringBuffer();
 		String newLine = System.lineSeparator();
 		try {
+			// generate main contents
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charset.forName("UTF-8")));
 			while ((line = br.readLine()) != null) {
 				sb.append(line).append(newLine);
 			}
 			MAIN_CONTENTS = sb.toString();
-//			SimpleDao menuDao = new SimpleDao(new SimpleDataInfoBinder("Menu", "NAME", "LINK"));
-			SimpleDao menuDao = new SimpleDao(Menu.class);
+			// generate menu contents
+			SimpleDao menuDao = new SimpleDao(Application.getConfig(), new SimpleDataInfoBinder("Menu", "NAME", "LINK"));
+			menuDao.drop();
+			menuDao.create();
+			menuDao.insert(new Menu("ttt", "http://localhost:9999/haha"));
+			menuDao.insert(new Menu("AAA", "http://localhost:9999/AAA"));
+			menuDao.insert(new Menu("BBB", "http://localhost:9999/BBB"));
 			List<Map<String, String>> menuList = menuDao.select();
+			menuList = menuDao.query("select * from menu");
 			sb = new StringBuffer();
 			for (Map<String, String> map : menuList) {
 				sb.append("<li><a href='" + map.get("LINK") + "'>" + map.get("NAME") + "</a></li>").append(newLine);
