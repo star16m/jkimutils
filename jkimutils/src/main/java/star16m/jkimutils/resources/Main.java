@@ -51,7 +51,6 @@ public class Main {
 			menuDao.insert(new Menu("AAA", "http://localhost:9999/AAA"));
 			menuDao.insert(new Menu("BBB", "http://localhost:9999/BBB"));
 			List<Map<String, String>> menuList = menuDao.select();
-			menuList = menuDao.query("select * from menu");
 			sb = new StringBuffer();
 			for (Map<String, String> map : menuList) {
 				sb.append("<li><a href='" + map.get("LINK") + "'>" + map.get("NAME") + "</a></li>").append(newLine);
